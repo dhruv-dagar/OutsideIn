@@ -39,7 +39,8 @@ export default function App() {
   const [reflection, setReflection] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [apiStatus, setApiStatus] = useState("Checking local AI…");
+  const [apiStatus, setApiStatus] = useState("Checking experience…");
+  const [apiMode, setApiMode] = useState("local");
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
@@ -49,17 +50,19 @@ export default function App() {
         return response.json();
       })
       .then((data) => {
-        
-setApiStatus(
-  data.mode === "demo"
-    ? "Public demo · Sample missions"
-    : data.modelAvailable
-      ? `Local AI ready · ${data.model}`
-      : "Model not found — check Ollama"
-);
-
+        setApiMode(data.mode === "demo" ? "demo" : "local");
+        setApiStatus(
+          data.mode === "demo"
+            ? "Public demo · Sample missions"
+            : data.modelAvailable
+              ? `Local AI ready · ${data.model}`
+              : "Model not found — check Ollama"
+        );
       })
-      .catch(() => setApiStatus("Local AI unavailable"));
+      .catch(() => {
+        setApiMode("local");
+        setApiStatus("Local AI unavailable");
+      });
   }, []);
 
   function updatePreference(key, value) {
@@ -236,7 +239,7 @@ setApiStatus(
             {loading ? "Dreaming up your adventure…" : "✳  Create my adventure"}
           </button>
           {error && <p className="error-message" role="alert">{error}</p>}
-          <p className="privacy-note">Your preferences stay in this session. Mission generation runs on your local AI model.</p>
+          <p className="privacy-note">{apiMode === "demo" ? "Try the public demo with curated sample missions. Your saved history stays in this browser." : "Your preferences stay in this session. Mission generation runs through your local Ollama model."}</p>
         </form>
       </section>
 
