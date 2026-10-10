@@ -159,17 +159,17 @@ export default function App() {
       </section>
 
       <section className="planner-section" id="planner">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">YOUR TIME, YOUR ADVENTURE</span>
-            <h2>Make a little room for outside.</h2>
-          </div>
-          <span className="step-label">01 / PLAN</span>
+        <div className="planner-intro">
+          <span className="eyebrow">A SMALL RITUAL FOR A BIGGER WORLD</span>
+          <h2>What does <em>outside</em> look like today?</h2>
+          <p>There’s no perfect plan. Follow a little curiosity and start where you are.</p>
+          <span className="step-label">01 — FIND YOUR KIND OF OUTSIDE</span>
         </div>
 
         <form className="planner" onSubmit={generateMission}>
+          <div className="planner-progress"><span /><span /><span /></div>
           <fieldset>
-            <legend>How much time do you have?</legend>
+            <legend><span className="legend-number">01</span><span>How much time have you found?</span><small>Even a few minutes count</small></legend>
             <div className="choice-row">
               {[10, 15, 20, 30, 45, 60].map((minutes) => (
                 <button
@@ -186,25 +186,26 @@ export default function App() {
           </fieldset>
 
           <fieldset>
-            <legend>What sounds good today?</legend>
+            <legend><span className="legend-number">02</span><span>What are you drawn to?</span><small>Choose the feeling, not the task</small></legend>
             <div className="interest-grid">
               {interests.map((interest, index) => (
                 <button
                   type="button"
                   key={interest}
-                  className={`interest-choice ${preferences.interest === interest ? "selected" : ""}`}
+                  className={`interest-choice vibe-${index + 1} ${preferences.interest === interest ? "selected" : ""}`}
                   onClick={() => updatePreference("interest", interest)}
                   aria-pressed={preferences.interest === interest}
                 >
-                  <span>{["🍃", "🥾", "📷", "☁️", "🐦"][index]}</span>
-                  {interest}
+                  <span className="interest-art" aria-hidden="true">{["🍃", "🥾", "📷", "☁️", "🐦"][index]}</span>
+                  <span className="interest-copy"><strong>{interest}</strong><small>{["Notice the tiny things growing", "Let your feet choose the way", "Catch a detail worth keeping", "Pause, breathe, reset", "Meet your wild neighbours"][index]}</small></span>
+                  <span className="selection-mark" aria-hidden="true">↗</span>
                 </button>
               ))}
             </div>
           </fieldset>
 
           <fieldset>
-            <legend>Where will you explore?</legend>
+            <legend><span className="legend-number">03</span><span>Where can you find a little nature?</span><small>Close to home is more than enough</small></legend>
             <div className="setting-grid">
               {settings.map((setting) => (
                 <button
@@ -214,15 +215,16 @@ export default function App() {
                   onClick={() => updatePreference("setting", setting.value)}
                   aria-pressed={preferences.setting === setting.value}
                 >
-                  <span>{setting.icon}</span>
-                  {setting.label}
+                  <span className="setting-icon">{setting.icon}</span>
+                  <span className="setting-label">{setting.label}</span>
+                  <span className="setting-check" aria-hidden="true">✓</span>
                 </button>
               ))}
             </div>
           </fieldset>
 
           <fieldset>
-            <legend>Choose your pace</legend>
+            <legend><span className="legend-number">04</span><span>What pace feels right?</span><small>Let your energy decide</small></legend>
             <div className="choice-row">
               {[
                 { value: "easy", label: "Easygoing", note: "Take it slow" },
@@ -306,21 +308,22 @@ export default function App() {
       <section className="history-section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">SMALL MOMENTS ADD UP</span>
-            <h2>Your outside time.</h2>
+            <span className="eyebrow">A FIELD JOURNAL OF LITTLE WONDERS</span>
+            <h2>Your life, a little more <em>outdoors.</em></h2>
+            <p className="history-intro">Every walk, pause and curious moment is worth keeping.</p>
           </div>
           <span className="step-label">{history.length} ADVENTURES</span>
         </div>
         <div className="stats-grid">
-          <div className="stat-card">
+          <div className="stat-card stat-leaf">
             <span>Adventures completed</span>
             <strong>{history.length}</strong>
           </div>
-          <div className="stat-card">
+          <div className="stat-card stat-sun">
             <span>Minutes spent outside</span>
             <strong>{totalMinutes}</strong>
           </div>
-          <div className="stat-card">
+          <div className="stat-card stat-wild">
             <span>Latest mission</span>
             <strong className="latest-stat">{history[0]?.title || "Waiting for your first"}</strong>
           </div>
