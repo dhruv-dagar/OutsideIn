@@ -140,14 +140,21 @@ export default function App() {
           </a>
           <div className="hero-note">✳ No feeds. No pressure. Just you and the world.</div>
         </div>
-        <div className="hero-art" role="img" aria-label="Illustration of a sunny green landscape">
-          <div className="sun" />
-          <div className="hill hill-back" />
-          <div className="hill hill-front" />
-          <div className="trail" />
-          <div className="flower flower-one">✿</div>
-          <div className="flower flower-two">✿</div>
-          <div className="art-caption">TAKE THE SCENIC ROUTE</div>
+        <div className="hero-video" aria-hidden="true">
+          <video
+            className="hero-video-media"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="https://images.pexels.com/videos/5784135/free-video-5784135.jpg?auto=compress&cs=tinysrgb&w=1600"
+          >
+            <source src="https://videos.pexels.com/video-files/5784135/5784135-hd_1920_1080_30fps.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-video-shade" />
+          <span className="hero-video-label"><span className="live-dot" /> A MOMENT OUTSIDE</span>
+          <span className="hero-video-caption">BREATHE IN. LOOK UP. BEGIN AGAIN.</span>
         </div>
       </section>
 
