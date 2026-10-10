@@ -49,11 +49,15 @@ export default function App() {
         return response.json();
       })
       .then((data) => {
-        setApiStatus(
-          data.modelAvailable
-            ? `Local AI ready · ${data.model}`
-            : "Model not found — check Ollama"
-        );
+        
+setApiStatus(
+  data.mode === "demo"
+    ? "Public demo · Sample missions"
+    : data.modelAvailable
+      ? `Local AI ready · ${data.model}`
+      : "Model not found — check Ollama"
+);
+
       })
       .catch(() => setApiStatus("Local AI unavailable"));
   }, []);
